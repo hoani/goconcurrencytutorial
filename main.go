@@ -50,5 +50,6 @@ func main() {
 		}
 	}
 	fmt.Printf("\n Took %v \n", time.Since(start))
+	time.Sleep(100 * time.Millisecond)
 	fmt.Printf("\n Running go routines %v \n", runtime.NumGoroutine())
 }
