@@ -8,17 +8,13 @@ import (
 	"time"
 )
 
-func Ping(c *http.Client, url string) error {
-	req, err := http.NewRequest("HEAD", url, nil)
-	if err != nil {
-		return err
-	}
-	res, err := c.Do(req)
+func PingServer(c *http.Client, url string) error {
+	res, err := c.Head(url)
 	if err != nil {
 		return err
 	}
 	if res == nil || res.StatusCode != 200 {
-		return errors.New("bad ping")
+		return errors.New("call failed")
 	}
 	return nil
 }
@@ -40,7 +36,7 @@ func main() {
 	c := &http.Client{}
 	// Ping all servers.
 	for _, server := range servers {
-		result := Ping(c, server)
+		result := PingServer(c, server)
 		results[server] = result
 	}
 
